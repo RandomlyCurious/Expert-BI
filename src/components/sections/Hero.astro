@@ -1,0 +1,48 @@
+---
+/**
+ * Hero — Variante A « centré épuré ».
+ * Promesse dominante + sous-titre + CTA primaire (§8 Accueil).
+ */
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import DashboardMotif from '../visual/DashboardMotif.astro';
+import { cta } from '../../config/site';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  highlight?: string;
+  subtitle: string;
+  trust?: string;
+}
+const { eyebrow, title, highlight, subtitle, trust } = Astro.props;
+---
+<section class="relative overflow-hidden">
+  <!-- fond gradient teal→azur très doux (touche rare §8B) -->
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 via-white to-white"></div>
+  <div class="pointer-events-none absolute -top-24 left-1/2 -z-10 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-r from-brand-200/40 via-azur-400/20 to-violet-500/10 blur-3xl"></div>
+
+  <Container class="py-20 text-center sm:py-28">
+    {eyebrow && (
+      <p class="mb-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold tracking-wide text-brand-700 uppercase shadow-card ring-1 ring-brand-100">
+        {eyebrow}
+      </p>
+    )}
+    <h1 class="mx-auto max-w-3xl font-display text-4xl font-bold leading-[1.1] text-ink sm:text-5xl md:text-6xl">
+      {title}{' '}
+      {highlight && <span class="text-gradient-brand">{highlight}</span>}
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-ink-soft sm:text-xl">{subtitle}</p>
+
+    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <Button href={cta.href} size="lg" data-event="cta_hero">{cta.label}</Button>
+      <Button href="/offres/" variant="secondary" size="lg">Découvrir les offres</Button>
+    </div>
+
+    {trust && <p class="mt-5 text-sm text-muted">{trust}</p>}
+
+    <div class="mx-auto mt-14 max-w-3xl" data-reveal>
+      <DashboardMotif class="mx-auto w-full drop-shadow-[0_24px_48px_rgba(15,23,42,0.12)]" />
+    </div>
+  </Container>
+</section>

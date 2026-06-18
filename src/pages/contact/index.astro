@@ -1,0 +1,101 @@
+---
+/**
+ * Contact / Prise de RDV `/contact/` (§8 / §10).
+ * Formulaire court + agenda. La soumission (POST {{WEBHOOK_N8N}}), le honeypot
+ * actif et Turnstile sont câblés au Lot 1 ④ (îlot interactif).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Container from '../../components/ui/Container.astro';
+import { conversion, site } from '../../config/site';
+
+const fieldClass =
+  'mt-1.5 w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink shadow-sm transition focus:border-azur-500 focus:ring-2 focus:ring-azur-500/30';
+---
+
+<BaseLayout
+  title="Contact & prise de rendez-vous"
+  description="Décrivez votre besoin en une phrase ou réservez directement un créneau. Réponse rapide, prestation 100 % remote, France entière."
+>
+  <PageHeader
+    eyebrow="Contact"
+    title="Parlons de votre Business Intelligence"
+    lead="Décrivez votre besoin en une phrase, ou réservez directement un créneau de diagnostic."
+  />
+
+  <section class="py-16">
+    <Container size="wide">
+      <div class="grid gap-10 lg:grid-cols-2">
+        <!-- Formulaire (statique pour l'instant — câblage Lot ④) -->
+        <div class="rounded-card bg-white p-7 shadow-card ring-1 ring-line" data-reveal>
+          <h2 class="font-display text-xl font-bold text-ink">Écrivez-nous</h2>
+          <form class="mt-6 space-y-5" data-contact-form>
+            <div>
+              <label for="nom" class="text-sm font-medium text-ink">Nom *</label>
+              <input id="nom" name="nom" type="text" autocomplete="name" required class={fieldClass} />
+            </div>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="societe" class="text-sm font-medium text-ink">Société *</label>
+                <input id="societe" name="societe" type="text" autocomplete="organization" required class={fieldClass} />
+              </div>
+              <div>
+                <label for="fonction" class="text-sm font-medium text-ink">Fonction *</label>
+                <input id="fonction" name="fonction" type="text" autocomplete="organization-title" required class={fieldClass} />
+              </div>
+            </div>
+            <div>
+              <label for="email" class="text-sm font-medium text-ink">E-mail *</label>
+              <input id="email" name="email" type="email" autocomplete="email" required class={fieldClass} />
+            </div>
+            <div>
+              <label for="besoin" class="text-sm font-medium text-ink">Votre besoin en une phrase *</label>
+              <textarea id="besoin" name="besoin" rows="3" required class={fieldClass}></textarea>
+            </div>
+
+            <!-- Honeypot anti-spam (caché aux humains) -->
+            <div class="hidden" aria-hidden="true">
+              <label for="company_url">Ne pas remplir</label>
+              <input id="company_url" name="company_url" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <!-- Emplacement Turnstile (rendu au Lot ④) -->
+            <div data-turnstile-slot></div>
+
+            <button
+              type="submit"
+              class="inline-flex w-full items-center justify-center rounded-full bg-accent-500 px-6 py-3 font-medium text-white shadow-card transition hover:bg-accent-600"
+            >
+              Envoyer
+            </button>
+            <p class="text-xs text-muted">
+              Vos informations servent uniquement à traiter votre demande. Voir la
+              <a href="/confidentialite/" class="underline hover:text-ink">politique de confidentialité</a>.
+            </p>
+          </form>
+        </div>
+
+        <!-- Agenda -->
+        <div class="rounded-card bg-surface-soft p-7 ring-1 ring-line" data-reveal>
+          <h2 class="font-display text-xl font-bold text-ink">Réserver un créneau</h2>
+          <p class="mt-2 text-sm text-ink-soft">Choisissez directement un horaire pour votre diagnostic.</p>
+          {conversion.rdvUrl ? (
+            <div class="mt-6 overflow-hidden rounded-xl border border-line">
+              <iframe
+                src={conversion.rdvUrl}
+                title="Agenda de prise de rendez-vous"
+                loading="lazy"
+                class="h-[640px] w-full"
+              ></iframe>
+            </div>
+          ) : (
+            <div class="mt-6 rounded-xl border border-dashed border-line bg-white p-6 text-sm text-muted">
+              Agenda à configurer (variable <code>PUBLIC_RDV_URL</code>). En attendant, écrivez-nous
+              ou contactez <a href={`mailto:${site.email}`} class="font-medium text-azur-600 hover:text-azur-700">{site.email}</a>.
+            </div>
+          )}
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

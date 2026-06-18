@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Le sitemap est généré par @astrojs/sitemap au build.
+Sitemap: https://expert-data-powerbi.fr/sitemap-index.xml

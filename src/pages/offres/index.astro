@@ -1,0 +1,94 @@
+---
+/**
+ * Offres / Services `/offres/` — structure IMPOSÉE §6 / §8.
+ * Ordre : Bloc 1 (P1 dominant) · Bloc 2 (Dev) · séparateur · Bloc 3 (Assistance,
+ * packs) · section Automatisation subordonnée · CTA.
+ * Le bloc Dev s'intercale entre P1 (2 200 €/mois) et le pack 20 h (2 000 €) → §6.4 OK.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Section from '../../components/ui/Section.astro';
+import Container from '../../components/ui/Container.astro';
+import OfferPillar from '../../components/sections/OfferPillar.astro';
+import AutomationBanner from '../../components/sections/AutomationBanner.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import { offers } from '../../config/site';
+---
+
+<BaseLayout
+  title="Nos offres — 3 modes d’engagement BI"
+  description="Data Analyst à temps partiel, développement BI & ETL sur mesure, assistance Power BI. Choisissez selon votre situation, pas par comparaison de prix."
+>
+  <PageHeader
+    eyebrow="Offres"
+    title="Trois manières de travailler ensemble"
+    lead="Ce ne sont pas trois paliers d’un même produit, mais trois modes d’engagement. Choisissez selon votre situation."
+  />
+
+  <!-- Bloc 1 — DOMINANT -->
+  <Section size="default" class="!pb-8">
+    <OfferPillar
+      rank="01"
+      dominant
+      title="Data Analyst à temps partiel"
+      tagline="La prise en charge continue de votre Business Intelligence — structuration, administration, développement et évolution — comme un membre de l’équipe, sans l’embaucher. Stack Power BI / Fabric / Power Automate."
+      forWho="vous avez un vrai besoin data sans de quoi occuper un temps plein, ou votre reporting engage votre entreprise vis-à-vis d’un grand compte et ne doit jamais faillir."
+      benefits={[
+        'Industrialisation et entretien de vos rapports dans la durée',
+        'Administration du service et supervision continue',
+        'Fiabilité du reporting critique — transfert de risque',
+        'Coût maîtrisé et prévisible, en opex',
+        'Sans recrutement, sans risque RH, résiliable',
+      ]}
+      price={`À partir de ${offers.tempsPartiel.priceFrom}`}
+      priceNote={offers.tempsPartiel.priceSuffix}
+      href="/data-analyst-temps-partiel/"
+      ctaLabel="En savoir plus sur le temps partiel"
+    />
+  </Section>
+
+  <!-- Bloc 2 — Dev (secondaire). Sépare P1 du pack 20 h (§6.4). -->
+  <Section size="default" class="!py-8">
+    <OfferPillar
+      rank="02"
+      title="Développement BI & ETL sur mesure"
+      tagline="Un besoin précis et ponctuel, livré clé en main."
+      forWho="vous avez un besoin précis et ponctuel : un rapport à créer, un flux de données à industrialiser."
+      benefits={[
+        'Rapports Power BI sur mesure',
+        'Pipelines ETL Fabric',
+        'Périmètre cadré, livrable défini',
+      ]}
+      price={`À partir de ${offers.dev.priceFrom}`}
+      priceNote={offers.dev.priceNote}
+      href="/developpement-power-bi-fabric/"
+    />
+  </Section>
+
+  <!-- Séparateur visuel net entre les modes d'engagement -->
+  <Container>
+    <hr class="border-line" />
+  </Container>
+
+  <!-- Bloc 3 — Assistance (secondaire), avec packs d'heures -->
+  <Section size="default" class="!pt-8">
+    <OfferPillar
+      rank="03"
+      title="Assistance"
+      tagline="Pour une équipe qui garde la main, mais veut être débloquée vite."
+      forWho="votre équipe utilise déjà Power BI / Excel, garde la main, mais veut être débloquée vite et monter en compétence."
+      benefits={[
+        'Débogage à la demande, déblocage DAX / Excel',
+        'Accompagnement publication & administration',
+        'Montée en compétence de votre équipe',
+      ]}
+      packs={offers.assistance.packs}
+      href="/assistance-power-bi/"
+    />
+  </Section>
+
+  <!-- Automatisation : subordonnée, après les 3 offres, sans prix (§6.5) -->
+  <AutomationBanner />
+
+  <CtaBand />
+</BaseLayout>

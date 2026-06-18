@@ -1,0 +1,17 @@
+---
+/** Conteneur centré à largeur maîtrisée (rythme « dashboard premium »). */
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  size?: 'default' | 'narrow' | 'wide';
+  class?: string;
+}
+const { as: Tag = 'div', size = 'default', class: className = '' } = Astro.props;
+const sizes = {
+  narrow: 'max-w-3xl',
+  default: 'max-w-6xl',
+  wide: 'max-w-7xl',
+};
+---
+<Tag class={`mx-auto w-full px-6 ${sizes[size]} ${className}`}>
+  <slot />
+</Tag>

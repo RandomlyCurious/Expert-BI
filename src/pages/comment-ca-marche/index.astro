@@ -1,0 +1,47 @@
+---
+/** Comment ça marche `/comment-ca-marche/` — rassure le non-tech (§8). */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Section from '../../components/ui/Section.astro';
+import MethodSteps from '../../components/sections/MethodSteps.astro';
+import FaqAccordion from '../../components/sections/FaqAccordion.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+
+const faq = [
+  {
+    q: 'Le diagnostic est-il gratuit ?',
+    a: 'Non. Le diagnostic est une première marche payante, volontairement dérisquée : on comprend votre situation et on chiffre la suite, sans engagement sur l’abonnement.',
+  },
+  {
+    q: 'Faut-il déjà avoir Power BI en place ?',
+    a: 'Pas nécessairement. On structure ou on remet en ordre vos données et vos rapports avant la prise en charge dans la durée.',
+  },
+  {
+    q: 'Comment se passe le travail 100 % à distance ?',
+    a: 'Toute la prestation est remote, partout en France : points réguliers, accès sécurisés à vos environnements, livrables versionnés.',
+  },
+];
+---
+
+<BaseLayout
+  title="Comment ça marche — diagnostic, structuration, abonnement"
+  description="Notre méthode en 3 étapes : un diagnostic chiffré, la structuration de vos données, puis la prise en charge de votre BI dans la durée."
+>
+  <PageHeader
+    eyebrow="Comment ça marche"
+    title="Une méthode simple, en trois étapes"
+    lead="De la première prise de contact à la prise en charge continue de votre BI — sans jargon."
+  />
+
+  <Section>
+    <MethodSteps />
+  </Section>
+
+  <Section tone="soft" title="Questions fréquentes" align="center">
+    <div class="mt-10">
+      <FaqAccordion items={faq} />
+    </div>
+  </Section>
+
+  <CtaBand />
+</BaseLayout>

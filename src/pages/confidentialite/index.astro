@@ -1,0 +1,34 @@
+---
+/** Politique de confidentialité `/confidentialite/` (§13 RGPD). Directionnel. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Section from '../../components/ui/Section.astro';
+import { site } from '../../config/site';
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Comment vos données personnelles sont traitées sur ce site."
+>
+  <PageHeader eyebrow="Légal" title="Politique de confidentialité" />
+  <Section size="narrow">
+    <div class="prose-bi max-w-none">
+      <p><em>Contenu directionnel — à compléter / faire valider juridiquement.</em></p>
+
+      <h2>Données collectées</h2>
+      <p>Le formulaire de contact collecte : nom, société, fonction, e-mail et la description de votre besoin. Ces données servent uniquement à traiter votre demande.</p>
+
+      <h2>Finalité et base légale</h2>
+      <p>Traitement de votre prise de contact (mesure précontractuelle / intérêt légitime). Aucune revente, aucun usage publicitaire.</p>
+
+      <h2>Mesure d'audience</h2>
+      <p>Le site utilise une mesure d'audience respectueuse de la vie privée (cookieless), n'utilisant pas de cookie de traçage et ne nécessitant pas de consentement.</p>
+
+      <h2>Conservation</h2>
+      <p>Les demandes sont conservées le temps nécessaire au traitement puis archivées ou supprimées.</p>
+
+      <h2>Vos droits</h2>
+      <p>Accès, rectification, suppression : écrivez à <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    </div>
+  </Section>
+</BaseLayout>

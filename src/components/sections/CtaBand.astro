@@ -1,0 +1,27 @@
+---
+/** Bandeau CTA final (primaire, répété) — §8 / §10 / §14. */
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import { cta } from '../../config/site';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+const {
+  title = 'Parlons de votre Business Intelligence',
+  subtitle = 'Un diagnostic pour comprendre votre situation et chiffrer la prise en charge. Première marche, sans engagement de la suite.',
+} = Astro.props;
+---
+<section class="py-16">
+  <Container>
+    <div class="relative overflow-hidden rounded-card bg-gradient-to-br from-brand-600 via-azur-600 to-violet-600 px-7 py-12 text-center shadow-card-lg sm:px-12 sm:py-16" data-reveal>
+      <div class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/10 blur-2xl"></div>
+      <h2 class="mx-auto max-w-2xl font-display text-2xl font-bold text-white sm:text-3xl">{title}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-white/85">{subtitle}</p>
+      <div class="mt-8">
+        <Button href={cta.href} size="lg" data-event="cta_band">{cta.label}</Button>
+      </div>
+    </div>
+  </Container>
+</section>

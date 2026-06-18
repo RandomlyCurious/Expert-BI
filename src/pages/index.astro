@@ -1,0 +1,140 @@
+---
+/**
+ * Accueil `/` — Variante A « centré épuré ».
+ * Sections dans l'ordre §8 : Hero · (références) · Pour qui · Aperçu 3 offres ·
+ * Extension automatisation · Réassurance · CTA final.
+ * Copy DIRECTIONNEL (le copy définitif viendra du Lot 2 — agent SEO/contenu).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import ReferencesStrip from '../components/sections/ReferencesStrip.astro';
+import Section from '../components/ui/Section.astro';
+import OfferPillar from '../components/sections/OfferPillar.astro';
+import AutomationBanner from '../components/sections/AutomationBanner.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { offers } from '../config/site';
+
+const pourQui = [
+  {
+    title: 'Un vrai besoin data, mais moins d’un temps plein',
+    desc: 'Trop pour rien, pas assez pour un recrutement : vous voulez une BI prise en charge sans embaucher.',
+  },
+  {
+    title: 'Un reporting qui engage votre entreprise',
+    desc: 'Vous reportez vers un grand compte : votre reporting est critique et ne doit jamais faillir.',
+  },
+];
+---
+
+<BaseLayout
+  title="Un data analyst à temps partiel, sans le CDI"
+  description="Votre Business Intelligence prise en charge dans la durée : fiable, entretenue, qui évolue. Prestation BI 100 % remote, France entière."
+>
+  <Hero
+    eyebrow="Prestation BI · 100 % remote · France entière"
+    title="Un Data Analyst à temps partiel,"
+    highlight="sans le CDI."
+    subtitle="Votre Business Intelligence prise en charge dans la durée : fiable, entretenue, qui évolue."
+    trust="Power BI · Fabric · Power Automate — sans recrutement, sans risque RH."
+  />
+
+  <ReferencesStrip />
+
+  <!-- Pour qui : sélection par situation (pas par prix) -->
+  <Section
+    eyebrow="Pour qui"
+    title="Deux situations, une même réponse"
+    lead="Vous vous reconnaissez ? La prise en charge de votre BI est faite pour vous."
+  >
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      {pourQui.map((p) => (
+        <div class="rounded-card bg-white p-6 shadow-card ring-1 ring-line" data-reveal>
+          <h3 class="font-display text-lg font-bold text-ink">{p.title}</h3>
+          <p class="mt-2 text-sm text-ink-soft">{p.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Aperçu des 3 offres : 3 blocs distincts (PAS un tableau 3 colonnes, §6.1) -->
+  <Section
+    id="offres"
+    tone="soft"
+    eyebrow="Nos offres"
+    title="Trois manières de travailler ensemble"
+    lead="Ce ne sont pas trois paliers d’un même produit, mais trois modes d’engagement. Choisissez selon votre situation."
+  >
+    <div class="mt-10 space-y-6">
+      <!-- Pilier 1 — DOMINANT, en premier, détaillé (§6.3) -->
+      <OfferPillar
+        rank="01"
+        dominant
+        title="Data Analyst à temps partiel"
+        tagline="Votre BI prise en charge en continu, comme un membre de l’équipe — sans l’embaucher."
+        forWho="vous avez un vrai besoin data sans de quoi occuper un temps plein, ou votre reporting engage votre entreprise vis-à-vis d’un grand compte et ne doit jamais faillir."
+        benefits={[
+          'Prise en charge continue : industrialisation, administration, évolution',
+          'Fiabilité du reporting et transfert du risque',
+          'Coût maîtrisé et prévisible, en opex',
+          'Sans recrutement, sans risque RH, résiliable',
+        ]}
+        price={`À partir de ${offers.tempsPartiel.priceFrom}`}
+        priceNote={offers.tempsPartiel.priceSuffix}
+        href="/data-analyst-temps-partiel/"
+        ctaLabel="Découvrir l’offre phare"
+      />
+
+      <!-- Piliers 2 & 3 secondaires, plus légers. P3 non adjacent au temps partiel : -->
+      <!-- le bloc Dev s’intercale, et on n’affiche pas ici le prix du pack 20 h (§6.4). -->
+      <div class="grid gap-6 lg:grid-cols-2">
+        <OfferPillar
+          rank="02"
+          title="Développement BI & ETL sur mesure"
+          forWho="vous avez un besoin précis et ponctuel : un rapport à créer, un flux de données à industrialiser."
+          benefits={[
+            'Rapports Power BI sur mesure',
+            'Pipelines ETL Fabric',
+            'Livrable cadré, périmètre défini',
+          ]}
+          price={`À partir de ${offers.dev.priceFrom}`}
+          priceNote={offers.dev.priceNote}
+          href="/developpement-power-bi-fabric/"
+        />
+        <OfferPillar
+          rank="03"
+          title="Assistance"
+          forWho="votre équipe utilise déjà Power BI / Excel, garde la main, mais veut être débloquée vite et monter en compétence."
+          benefits={[
+            'Débogage à la demande, déblocage DAX / Excel',
+            'Accompagnement publication & administration',
+            'Montée en compétence de votre équipe',
+          ]}
+          price="Packs d’heures"
+          priceNote="5 h · 10 h · 20 h"
+          href="/assistance-power-bi/"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <!-- Extension automatisation : subordonnée, après les 3 offres, sans prix (§6.5) -->
+  <AutomationBanner />
+
+  <!-- Réassurance (§11) -->
+  <Section
+    eyebrow="Pourquoi nous"
+    title="Une méthode claire, des bases fiables"
+    lead="Expertise multi-secteurs sur la stack Microsoft (Power BI / Fabric / Power Automate), méthode documentée et engagements de service."
+  >
+    <div class="mt-8">
+      <a href="/comment-ca-marche/" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-900">
+        Voir comment ça marche
+        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M7.3 4.3a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4L11.6 10 7.3 5.7a1 1 0 0 1 0-1.4Z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+  </Section>
+
+  <CtaBand />
+</BaseLayout>

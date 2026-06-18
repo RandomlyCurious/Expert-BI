@@ -1,0 +1,20 @@
+---
+/** En-tête de page intérieure : H1 + chapô, fond gradient doux (§8B). */
+import Container from '../ui/Container.astro';
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+}
+const { eyebrow, title, lead } = Astro.props;
+---
+<section class="relative overflow-hidden border-b border-line">
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-white"></div>
+  <Container class="py-14 sm:py-16">
+    {eyebrow && (
+      <p class="mb-3 text-sm font-semibold tracking-wide text-brand-600 uppercase">{eyebrow}</p>
+    )}
+    <h1 class="max-w-3xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">{title}</h1>
+    {lead && <p class="mt-4 max-w-2xl text-lg text-ink-soft">{lead}</p>}
+  </Container>
+</section>

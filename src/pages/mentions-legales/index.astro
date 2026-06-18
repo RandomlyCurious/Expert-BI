@@ -1,0 +1,30 @@
+---
+/** Mentions légales `/mentions-legales/` (§13). Contenu directionnel à compléter. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import Section from '../../components/ui/Section.astro';
+import { site, legal } from '../../config/site';
+---
+
+<BaseLayout title="Mentions légales" description="Mentions légales du site.">
+  <PageHeader eyebrow="Légal" title="Mentions légales" />
+  <Section size="narrow">
+    <div class="prose-bi max-w-none">
+      <p><em>Contenu directionnel — à compléter avec les informations légales définitives.</em></p>
+
+      <h2>Éditeur du site</h2>
+      <p>{site.name} — contact : <a href={`mailto:${site.email}`}>{site.email}</a>.<br />
+      Prestation BI 100 % remote, France entière.</p>
+      <p>[SIRET, forme juridique, adresse, responsable de publication à renseigner.]</p>
+
+      <h2>Hébergement</h2>
+      <p>[Hébergeur statique — Cloudflare Pages / Netlify — à renseigner.]</p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>L'ensemble des contenus de ce site est protégé. {legal.microsoftDisclaimer}</p>
+
+      <h2>Données personnelles</h2>
+      <p>Voir la <a href="/confidentialite/">politique de confidentialité</a>.</p>
+    </div>
+  </Section>
+</BaseLayout>

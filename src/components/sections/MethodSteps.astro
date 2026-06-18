@@ -1,0 +1,30 @@
+---
+/** Parcours méthode en 3 étapes (§8 Comment ça marche). Rassure le non-tech. */
+interface Step {
+  title: string;
+  desc: string;
+}
+interface Props {
+  steps?: Step[];
+}
+const defaultSteps: Step[] = [
+  { title: 'Diagnostic', desc: 'Première marche dérisquée (payante) : on comprend votre situation et on chiffre.' },
+  { title: 'Structuration', desc: 'On remet vos données et vos rapports en ordre, sur des bases fiables.' },
+  { title: 'Abonnement', desc: 'On prend en charge dans la durée : supervision, évolutions, fiabilité.' },
+];
+const { steps = defaultSteps } = Astro.props;
+---
+<ol class="grid gap-6 sm:grid-cols-3">
+  {steps.map((step, i) => (
+    <li class="relative rounded-card bg-white p-6 shadow-card ring-1 ring-line" data-reveal>
+      <span class="font-display text-3xl font-bold tabular-nums text-gradient-brand">{String(i + 1).padStart(2, '0')}</span>
+      <h3 class="mt-2 font-display text-lg font-bold text-ink">{step.title}</h3>
+      <p class="mt-2 text-sm text-ink-soft">{step.desc}</p>
+      {i < steps.length - 1 && (
+        <svg class="absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-line sm:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      )}
+    </li>
+  ))}
+</ol>

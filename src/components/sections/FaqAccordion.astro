@@ -1,0 +1,27 @@
+---
+/**
+ * FAQ accordéon — <details> natif (zéro JS, accessible clavier).
+ * Le JSON-LD FAQPage sera injecté au Lot 1 ⑤ à partir des mêmes données.
+ */
+interface QA {
+  q: string;
+  a: string;
+}
+interface Props {
+  items: QA[];
+}
+const { items } = Astro.props;
+---
+<div class="mx-auto max-w-3xl divide-y divide-line rounded-card bg-white shadow-card ring-1 ring-line">
+  {items.map((item) => (
+    <details class="group px-6 py-4 [&_svg]:open:rotate-180">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-medium text-ink">
+        {item.q}
+        <svg class="h-5 w-5 flex-none text-muted transition-transform" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z" clip-rule="evenodd" />
+        </svg>
+      </summary>
+      <p class="mt-3 text-sm text-ink-soft">{item.a}</p>
+    </details>
+  ))}
+</div>

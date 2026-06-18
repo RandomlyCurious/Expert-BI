@@ -1,0 +1,70 @@
+---
+/**
+ * Gabarit Landing SEO `/[slug]/` (§8 / §9).
+ * Une intention par page : H1 (promesse) · problème/réponse (corps markdown) ·
+ * réassurance · maillage vers l'offre concernée · CTA primaire.
+ * Routes générées depuis la collection `landings` (éditable via TinaCMS).
+ */
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import Section from '../components/ui/Section.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+
+export async function getStaticPaths() {
+  const isProd = import.meta.env.PROD;
+  const entries = await getCollection('landings', (e) => !(isProd && e.data.draft));
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// Maillage : intention → offre cible
+const relMap: Record<string, { label: string; href: string }> = {
+  pilier1: { label: 'Data Analyst à temps partiel', href: '/data-analyst-temps-partiel/' },
+  pilier2: { label: 'Développement BI & ETL sur mesure', href: '/developpement-power-bi-fabric/' },
+  pilier3: { label: 'Assistance Power BI / Excel', href: '/assistance-power-bi/' },
+  automatisation: { label: 'Automatisation du reporting', href: '/automatisation-reporting/' },
+  accueil: { label: 'Découvrir l’offre', href: '/offres/' },
+};
+const related = relMap[entry.data.relatesTo];
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <!-- Fil d'Ariane (BreadcrumbList JSON-LD ajouté au Lot ⑤) -->
+  <nav aria-label="Fil d’Ariane" class="border-b border-line bg-surface-soft">
+    <div class="mx-auto max-w-6xl px-6 py-2.5 text-xs text-muted">
+      <a href="/" class="hover:text-ink">Accueil</a>
+      <span class="mx-1.5">/</span>
+      <a href="/offres/" class="hover:text-ink">Offres</a>
+      <span class="mx-1.5">/</span>
+      <span class="text-ink-soft">{entry.data.h1}</span>
+    </div>
+  </nav>
+
+  <PageHeader title={entry.data.h1} lead={entry.data.description} />
+
+  <Section size="narrow">
+    <div class="prose-bi max-w-none">
+      <Content />
+    </div>
+
+    {related && (
+      <div class="mt-12 rounded-card bg-surface-soft p-6 ring-1 ring-line">
+        <p class="text-sm font-semibold text-ink">L’offre concernée</p>
+        <a href={related.href} class="mt-1 inline-flex items-center gap-1.5 font-display text-lg font-bold text-brand-700 hover:text-brand-900">
+          {related.label}
+          <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M7.3 4.3a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4L11.6 10 7.3 5.7a1 1 0 0 1 0-1.4Z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+    )}
+  </Section>
+
+  <CtaBand title={entry.data.cta ?? 'Parlons de votre situation'} />
+</BaseLayout>

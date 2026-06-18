@@ -1,0 +1,40 @@
+---
+/** Section verticale avec rythme d'espacement homogène + en-tête optionnel. */
+import Container from './Container.astro';
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  lead?: string;
+  align?: 'left' | 'center';
+  tone?: 'default' | 'soft';
+  size?: 'default' | 'narrow' | 'wide';
+  class?: string;
+}
+const {
+  id,
+  eyebrow,
+  title,
+  lead,
+  align = 'left',
+  tone = 'default',
+  size = 'default',
+  class: className = '',
+} = Astro.props;
+const toneClass = tone === 'soft' ? 'bg-surface-soft' : 'bg-surface';
+const alignClass = align === 'center' ? 'text-center mx-auto' : '';
+---
+<section id={id} class={`py-16 sm:py-20 ${toneClass} ${className}`}>
+  <Container size={size}>
+    {(eyebrow || title || lead) && (
+      <div class={`max-w-2xl ${alignClass}`} data-reveal>
+        {eyebrow && (
+          <p class="mb-2 text-sm font-semibold tracking-wide text-brand-600 uppercase">{eyebrow}</p>
+        )}
+        {title && <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">{title}</h2>}
+        {lead && <p class="mt-4 text-lg text-ink-soft">{lead}</p>}
+      </div>
+    )}
+    <slot />
+  </Container>
+</section>

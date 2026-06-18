@@ -1,0 +1,35 @@
+---
+/**
+ * Bouton / lien d'action.
+ * `primary` = accent ambre, RÉSERVÉ au CTA primaire unique (§8B / §10).
+ */
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg';
+  class?: string;
+  'data-event'?: string;
+}
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors duration-200';
+const sizes = {
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base',
+};
+const variants = {
+  primary: 'bg-accent-500 text-white shadow-card hover:bg-accent-600',
+  secondary: 'bg-white text-ink ring-1 ring-line hover:ring-brand-400 hover:text-brand-700',
+  ghost: 'text-ink-soft hover:text-ink',
+};
+---
+<a href={href} class={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...rest}>
+  <slot />
+</a>

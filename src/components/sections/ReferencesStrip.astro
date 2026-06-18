@@ -1,0 +1,35 @@
+---
+/**
+ * Bande de références (§11 / PROMPT).
+ * Sobre, en niveaux de gris. NE PAS inventer de logos : tant que la liste
+ * `references.logos` n'est pas validée, on affiche des emplacements neutres
+ * (aucun nom de marque) — le wording du titre reste en variable.
+ */
+import Container from '../ui/Container.astro';
+import { references } from '../../config/site';
+
+const hasLogos = references.logos.length > 0;
+const placeholders = Array.from({ length: 5 });
+---
+<section class="border-y border-line bg-white py-10">
+  <Container size="wide">
+    <p class="text-center text-xs font-semibold tracking-wide text-muted uppercase">{references.title}</p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+      {hasLogos
+        ? references.logos.map((logo) => (
+            logo.src
+              ? <img src={logo.src} alt={logo.name} height="28" class="h-7 w-auto opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0" loading="lazy" />
+              : <span class="font-display text-lg font-semibold text-slate-400">{logo.name}</span>
+          ))
+        : placeholders.map(() => (
+            <span class="h-7 w-28 rounded-md bg-slate-100" aria-hidden="true"></span>
+          ))}
+    </div>
+    {!hasLogos && (
+      <p class="mt-4 text-center text-xs text-muted">
+        <!-- DEV : emplacements en attente de la liste de références validée (§11). -->
+        Références à confirmer.
+      </p>
+    )}
+  </Container>
+</section>

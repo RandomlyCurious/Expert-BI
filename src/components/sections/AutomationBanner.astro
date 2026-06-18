@@ -1,0 +1,37 @@
+---
+/**
+ * Extension « Automatisation & IA » — section SUBORDONNÉE (§6.5).
+ * Vient APRÈS les 3 offres, SANS PRIX, niveau visuel inférieur aux piliers
+ * (pas de carte blanche en relief, titre h3, ton discret). JAMAIS un 4e pilier.
+ */
+import Container from '../ui/Container.astro';
+
+const examples = [
+  { title: 'Alertes sur vos KPI', desc: 'Soyez prévenu dès qu’un indicateur décroche, sans surveiller vos rapports.' },
+  { title: 'Diffusion automatique', desc: 'Vos rapports arrivent au bon interlocuteur, au bon rythme, sans manipulation.' },
+  { title: 'Questions en langage naturel', desc: 'Interrogez vos données en une phrase, obtenez la réponse.' },
+];
+---
+<section class="bg-surface-soft py-14">
+  <Container>
+    <div class="rounded-card border border-dashed border-line bg-white/60 p-7 sm:p-9" data-reveal>
+      <p class="text-xs font-semibold tracking-wide text-muted uppercase">Pour aller plus loin</p>
+      <h3 class="mt-2 font-display text-xl font-bold text-ink sm:text-2xl">
+        Une fois vos données en ordre, on va plus loin
+      </h3>
+      <p class="mt-2 max-w-2xl text-sm text-ink-soft">
+        Prolongement naturel — une fois la BI structurée et fiable — pour automatiser
+        et tirer parti de l’IA. <a href="/automatisation-reporting/" class="font-medium text-azur-600 hover:text-azur-700">Voir l’automatisation du reporting</a>.
+      </p>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-3">
+        {examples.map((e) => (
+          <li class="rounded-xl bg-surface-soft p-4">
+            <p class="text-sm font-semibold text-ink">{e.title}</p>
+            <p class="mt-1 text-sm text-ink-soft">{e.desc}</p>
+          </li>
+        ))}
+      </ul>
+      <!-- Volontairement SANS prix ni CTA primaire (§6.5). -->
+    </div>
+  </Container>
+</section>

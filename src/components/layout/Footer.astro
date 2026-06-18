@@ -1,0 +1,67 @@
+---
+/** Pied de page : liens, légal, mention remote, disclaimer Microsoft (§7/§13). */
+import Container from '../ui/Container.astro';
+import { site, legal } from '../../config/site';
+
+const cols = [
+  {
+    title: 'Offres',
+    links: [
+      { label: 'Data Analyst à temps partiel', href: '/data-analyst-temps-partiel/' },
+      { label: 'Développement BI & ETL', href: '/developpement-power-bi-fabric/' },
+      { label: 'Assistance Power BI / Excel', href: '/assistance-power-bi/' },
+      { label: 'Automatisation du reporting', href: '/automatisation-reporting/' },
+    ],
+  },
+  {
+    title: 'Le service',
+    links: [
+      { label: 'Toutes les offres', href: '/offres/' },
+      { label: 'Comment ça marche', href: '/comment-ca-marche/' },
+      { label: 'Reporting grand compte', href: '/reporting-grand-compte/' },
+      { label: 'Contact', href: '/contact/' },
+    ],
+  },
+  {
+    title: 'Légal',
+    links: [
+      { label: 'Mentions légales', href: '/mentions-legales/' },
+      { label: 'Confidentialité', href: '/confidentialite/' },
+    ],
+  },
+];
+---
+<footer class="border-t border-line bg-surface-soft">
+  <Container size="wide" class="py-14">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <p class="font-display text-lg font-bold text-ink">{site.name}</p>
+        <p class="mt-3 max-w-xs text-sm text-ink-soft">
+          Votre Business Intelligence prise en charge dans la durée : fiable,
+          entretenue, qui évolue.
+        </p>
+        <p class="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-medium text-brand-700 ring-1 ring-line">
+          <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
+          100 % remote · France entière
+        </p>
+      </div>
+      {cols.map((col) => (
+        <div>
+          <h2 class="text-sm font-semibold text-ink">{col.title}</h2>
+          <ul class="mt-3 space-y-2">
+            {col.links.map((l) => (
+              <li>
+                <a href={l.href} class="text-sm text-ink-soft transition-colors hover:text-brand-700">{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 flex flex-col gap-3 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+      <p>© {new Date().getFullYear()} {site.name}. Tous droits réservés.</p>
+      <p class="max-w-xl">{legal.microsoftDisclaimer}</p>
+    </div>
+  </Container>
+</footer>
